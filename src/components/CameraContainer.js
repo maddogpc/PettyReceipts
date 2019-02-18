@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Expo from 'expo';
-import { Constants, Camera, Permissions } from 'expo';
+import { Camera, Permissions } from 'expo';
 import isIPhoneX from 'react-native-is-iphonex';
 import { 
   FontAwesome,

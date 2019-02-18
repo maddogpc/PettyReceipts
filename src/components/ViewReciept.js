@@ -24,7 +24,7 @@ const ViewReciept = props => {
 			<Text style={{fontSize:24, fontFamily: 'monospace-typewriter'}}>
 			{props.name}</Text>
 			<FontAwesome style={{paddingRight: 0, paddingTop:5}} 
-				name="edit" 
+				name="close" 
 				size={40} 
 				color="gray" 
 				onPress={this.onPress}

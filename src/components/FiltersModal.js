@@ -147,7 +147,7 @@ export default class FiltersModal extends Component {
 					                style={filterModalStyles.textInputNumber}
 					                ref={tagName+"Begin"}
 					              />
-					            <Text style={filterModalStyles.qualifier}> To: </Text>
+					            <Text style={filterModalStyles.qualifier}>  To: </Text>
 					            <TextInput
 					            	placeholder="decimal/integer"
 					                placeholderTextColor="gray"
@@ -192,7 +192,7 @@ export default class FiltersModal extends Component {
 					                placeholderTextColor="gray"
 					                ref={tagName+"Begin"}
 					              />
-					            <Text style={filterModalStyles.qualifier}> To: </Text>
+					            <Text style={filterModalStyles.qualifier}>  To: </Text>
 					            <TextInput
 					                style={filterModalStyles.textInputDate}
 					                placeholder="dd/mm/yyyy"
@@ -233,7 +233,7 @@ export default class FiltersModal extends Component {
 		          }}> 
 		          <ScrollView contentContainerStyle={filterModalStyles.mainContainer} endFillColor='#d3dee7'>
 			          <View style={filterModalStyles.menuContainer}>
-		                  <FontAwesome name="window-close-o" size={40} color="firebrick" onPress={() => {
+		                  <FontAwesome name="close" size={40} color="#B0D235" onPress={() => {
 		                        this.props.onClose();
 		                      }}/>
 		              </View>
@@ -244,7 +244,7 @@ export default class FiltersModal extends Component {
 	                   style={filterModalStyles.buttons}
 	                   onPress={this.getInput}
 	                 >
-	                   <Text style={{fontSize:24, fontFamily: 'monospace-typewriter', color: '#042037'}}> Apply Filters </Text>
+	                   <Text style={{fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}> Apply Filters </Text>
 	                 </TouchableOpacity>
 	                 <View style={{backgroundColor: '#d3dee7', marginTop: 50}}></View>
 	              </ScrollView>
@@ -258,7 +258,7 @@ const filterModalStyles = StyleSheet.create({
   mainContainer: {
     flexGrow: 1,
     alignItems: 'center',
-    backgroundColor: '#d3dee7',
+    backgroundColor: '#fff',
   },
   menuContainer: {
     marginTop: marginTop + 5,
@@ -270,44 +270,50 @@ const filterModalStyles = StyleSheet.create({
   	alignSelf: 'flex-start', 
   	marginTop: 15, 
   	marginBottom: 15, 
-  	borderBottomWidth: 3,
+  	//borderBottomWidth: 3,
   	borderColor: 'gray',
   },
   textInput: {
     width: 100,
-    borderColor: 'gray', 
+    height: 30,
+    borderColor: 'lightgray', 
     borderWidth: 1,
     textAlignVertical: 'top',
     alignSelf: 'center',
   },
   textInputNumber: {
     marginTop: 15,
-    width: 75,
-    borderColor: 'gray', 
+    height: 30,
+    width: 100,
+    borderColor: 'lightgray', 
     borderWidth: 1,
     textAlignVertical: 'top',
     alignSelf: 'center',
   },
   textInputDate: {
     marginTop: 15,
+    height: 30,
     width: 100,
-    borderColor: 'gray', 
+    borderColor: 'lightgray', 
     borderWidth: 1,
     textAlignVertical: 'top',
     alignSelf: 'center',
   },
   headerText: {
-  	fontSize: 20, 
+  	fontSize: 24, 
   	fontFamily: 'monospace-typewriter',
   },
   qualifier: {
   	marginTop: 15,
-  	fontSize: 20, 
+  	fontSize: 24, 
   	fontFamily: 'monospace-typewriter',
   },
   buttons: {
+  	width: '90%',
+  	height: 40,
   	marginTop: 30,
     borderWidth: 1,
-    backgroundColor: '#a9ccbf',
+    backgroundColor: '#B0D235',
+    alignItems: 'center',
   },
 });

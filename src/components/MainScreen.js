@@ -39,7 +39,8 @@ class MainScreen extends React.Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'monospace-typewriter': require('../../assets/fonts/MonospaceTypewriter.ttf'),
+      'monospace-typewriter': require('../../assets/fonts/zilla-slab.medium.ttf'),
+      'zilla-slab.semibold': require('../../assets/fonts/zilla-slab.semibold.ttf'),
     });
     let reciepts = this.props.reciepts;
     var reformattedArray = reciepts.map(reciept =>{ 
@@ -145,29 +146,42 @@ class MainScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
+
           <TouchableOpacity style={styles.topnav} onPress={() => this.props.navigation.dispatch({ type: 'Groups' })}>
-            <FontAwesome name="object-group" size={32} color="green" />
+            <FontAwesome name="object-group" size={40} color="#3EA9C1" style={{marginTop:5}} />
              {this.state.fontLoaded ? (
-                <Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20, marginTop: 2 }}>Groups</Text>
+                <Text style={{ fontFamily: 'zilla-slab.semibold', fontSize: 20, marginTop: 2 }}>Groups</Text>
               ) : (
                 <Text>Groups</Text>
               )}
           </TouchableOpacity>
 
-          <View style={{padding: 50}}></View>
-
           <TouchableOpacity style={styles.topnav} onPress={this.onPressOrganize}>
-            <Foundation name="page-search" size={32} color="green" />
+              <FontAwesome name="search" size={40} color="#3EA9C1" style={{marginTop:5}} />
+               {this.state.fontLoaded ? (
+                  <Text style={{ color: 'black', fontFamily: 'zilla-slab.semibold', fontSize: 20 }}>Search</Text>
+                ) : (
+                  <Text>Search</Text>
+                )}
+            </TouchableOpacity>
+            
+          <TouchableOpacity style={styles.topnavSelected} onPress={() => this.props.navigation.dispatch({ type: 'Main' })}>
+            <MaterialIcons name="receipt" size={40} color="#fff" style={{marginTop:5}} />
              {this.state.fontLoaded ? (
-                <Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20 }}>Search</Text>
+                <Text style={{ color: 'white', fontFamily: 'zilla-slab.semibold', fontSize: 20, marginTop: 2 }}>Receipts</Text>
               ) : (
-                <Text>Search</Text>
+                <Text>Receipts</Text>
               )}
-          </TouchableOpacity>
+            </TouchableOpacity>
+            
 
+          {/*<View style={{padding: 50}}></View>*/}
+          
+          
           <TouchableOpacity style={styles.addReciept} onPress={this.onPress}>
-            <MaterialIcons name="note-add" size={60} color="green" style={{alignSelf: 'flex-start'}} />
+            <MaterialIcons name="note-add" size={80} color="#3EA9C1"  />
           </TouchableOpacity>
+         
         </View>
 
         <View style={styles.mainContainer}>
@@ -274,32 +288,44 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   navContainer: {
-    flex: .1,
+    flex: .13,
     flexDirection: 'row',
     backgroundColor: '#fff',
+    borderBottomWidth: 10,
+    borderBottomColor: '#3EA9C1',
   },
   mainContainer: {
-    flex: .9,
+    flex: .87,
     padding: 10,
-    backgroundColor: '#d3dee7',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   topnav: {
-    width: 85,
-    margin: 1,
+    width: '25%',
+    marginLeft: 5,
     alignItems: 'center',
+    borderColor: '#3EA9C1',
+    borderTopWidth: 3,
+    borderTopLeftRadius: 15, 
+    borderTopRightRadius: 15,
     borderLeftWidth: 3,
-    borderTopLeftRadius: 10,
+    borderTopLeftRadius: 15,
     borderRightWidth: 3,
-    borderTopRightRadius: 10,
+    borderTopRightRadius: 15,
+    borderRightWidth: 3,
+    borderTopRightRadius: 15,
+  },
+  topnavSelected: {
+    width: '25%',
+    marginLeft: 5,
+    alignItems: 'center',
+    backgroundColor: '#3EA9C1', 
+    borderTopLeftRadius: 15, 
+    borderTopRightRadius: 15,
   },
   addReciept: {
-    width: 100,
-    marginLeft: 5,
-    borderLeftWidth: 3,
-    borderBottomWidth: 3,
-    borderBottomLeftRadius: 10,
+    width: '25%',
   },
   groupsText: {
     fontSize:20,

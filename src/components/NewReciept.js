@@ -138,6 +138,35 @@ export default class NewReciept extends Component {
       groupArray, 
       tagArray
       );
+
+    this.props.onClose();
+  }
+
+  onSubmitHandler(name, dateProp) {
+    // console.log(index);
+    let tagItemsTemp = this.props.tags.tagItems;
+    let tagKeys = Object.keys(tagItemsTemp);
+    let found = false;
+    console.log(name, dateProp);
+    for (let i=0; i<tagKeys.length; i++) {
+      if (tagKeys[i] === name) {
+        if (dateProp === "first") {
+          this["second"+name].focus(); 
+        }
+        else if (dateProp === "second") {
+          this["third"+name].focus(); 
+        }
+        else {
+          let key = tagKeys[i+1];
+          if (this[key]) {
+            this[key].focus();
+          }
+          else if (this["first"+key]) {
+            this["first"+key].focus();
+          }
+        }
+      }
+    }
   }
 
   render() {
@@ -158,21 +187,27 @@ export default class NewReciept extends Component {
           onRequestClose={() => {
             //alert('Modal has been closed.');
           }}> 
-            <View style={pageOneStyles.mainContainer}>
-
-              <View style={pageOneStyles.menuContainer}>
-                  <FontAwesome name="window-close-o" size={40} color="firebrick" onPress={() => {
-                        this.props.onClose();
-                      }}/>
+            <View style={pageOneStyles.menuContainer}>
+              <View style={pageOneStyles.subMenu}>
+                <Text style={{fontSize:28, fontFamily: 'zilla-slab.semibold', borderWidth: 0, color: "#FFF"}}>Add Receipt</Text>
+                <MaterialIcons name="close" size={40} color="white" onPress={() => {
+                      this.props.onClose();
+                    }}/>
               </View>
-              <Text style={{flex: .1, justifyContent: 'center', fontSize: 28, fontFamily: 'monospace-typewriter', color: '#042037'}}>Add Reciept</Text>
-              <TouchableOpacity style={{flex:.4, alignItems:'center', justifyContent: 'center', 
-              width:'95%', backgroundColor: '#a9ccbf', borderWidth:1}} 
+            </View>
+            <View style={pageOneStyles.ButtonOneContainer}>
+              <TouchableOpacity style={{alignItems:'center', justifyContent: 'center', 
+              width:'100%', backgroundColor: '#b0d235', borderWidth:1}} 
               onPress={this.onPressTakePhoto}>
-                    <Text style={{fontSize:20, color: 'darkcyan'}}>Take Photo</Text>
+                    <Text style={{fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}>Take Photo</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{flex:.4, alignItems:'center', justifyContent: 'center', width:'95%', backgroundColor: '#a9ccbf', borderWidth:1, marginTop:10}} onPress={this.onPressSkip}>
-                    <Text style={{fontSize:20, color: 'darkcyan'}}>Skip</Text>
+              
+            </View>
+            <View style={pageOneStyles.ButtonTwoContainer}>
+              <TouchableOpacity style={{alignItems:'center', justifyContent: 'center',
+               width:'100%', backgroundColor: '#3ea9c1', borderWidth:1}} 
+               onPress={this.onPressSkip}>
+                    <Text style={{fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}>Skip</Text>
               </TouchableOpacity>
             </View>
           </Modal>
@@ -198,10 +233,10 @@ export default class NewReciept extends Component {
           groupElements = Object.keys(groupItemsTemp).map(name => {
             return ( 
               <View key={name} style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: 10}}>
-                  <Text style={{marginLeft:10, fontFamily: 'monospace-typewriter', borderWidth: 1, padding:2}}>{name}</Text>
+                  <Text style={{marginLeft:10, fontFamily: 'monospace-typewriter', borderWidth: 0, backgroundColor: "#D3D3D3", padding:2}}>{name}</Text>
                   <CheckBox
-                    title='Include'
-                    containerStyle={{padding:0, margin:0, backgroundColor:'lightgreen'}}
+                    title='INCLUDE'
+                    containerStyle={{padding:0, margin:0}}
                     checked={this.state[name]}
                     onPress={() => this.setState({[name]: !this.state[name]})}
                   />
@@ -212,12 +247,12 @@ export default class NewReciept extends Component {
         let tagItemsTemp = this.props.tags.tagItems;
         let tagElements = [];
         if (tagItemsTemp) {
-          tagElements = Object.keys(tagItemsTemp).map(name => {
+          tagElements = Object.keys(tagItemsTemp).map((name,i) => {
             let type = tagItemsTemp[name].type;
             let initialState;
             return ( 
               <View key={name} style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: 10}}>
-                  <Text style={{marginLeft:10, fontFamily: 'monospace-typewriter', borderWidth: 1, padding:2}}>{name}</Text>
+                  <Text style={{marginLeft:10, fontFamily: 'monospace-typewriter', backgroundColor: "#D3D3D3", padding:2}}>{name}</Text>
                   {type === "Date" ? (
                     <View style={{flexDirection: 'row'}}>
                       <TextInput 
@@ -230,7 +265,11 @@ export default class NewReciept extends Component {
                         textAlignVertical: 'top'}}
                         placeholder = {"dd"}
                         onChangeText={(text) => this.setState({["first"+name]: text})}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => this.onSubmitHandler(name, "first")}
+                        blurOnSubmit={false}
                         value = {this.state["first"+name]}
+                        ref={(input) => { this["first"+name] = input; }}
                         />
                       <TextInput 
                         style={{
@@ -242,7 +281,11 @@ export default class NewReciept extends Component {
                         textAlignVertical: 'top'}}
                         placeholder = {"mm"}
                         onChangeText={(text) => this.setState({["second"+name]: text})}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => this.onSubmitHandler(name, "second")}
+                        blurOnSubmit={false}
                         value = {this.state["second"+name]}
+                        ref={(input) => { this["second"+name] = input; }}
                         />
                       <TextInput 
                         style={{
@@ -254,7 +297,11 @@ export default class NewReciept extends Component {
                         textAlignVertical: 'top'}}
                         placeholder = {"yyyy"}
                         onChangeText={(text) => this.setState({["third"+name]: text})}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => this.onSubmitHandler(name, null)}
+                        blurOnSubmit={false}
                         value = {this.state["third"+name]}
+                        ref={(input) => { this["third"+name] = input; }}
                         />
                     </View>
                     ) : (
@@ -273,8 +320,12 @@ export default class NewReciept extends Component {
                     : type === "Boolean" ? "True/False"
                     : ""
                   }
+                    returnKeyType={"next"}
+                    onSubmitEditing={() => this.onSubmitHandler(name, null)}
+                    blurOnSubmit={false}
                     onChangeText={(text) => this.setState({[name]: text})}
                     value = {this.state[name]}
+                    ref={(input) => { this[name] = input; }}
                   />
                   )}
               </View>
@@ -292,18 +343,18 @@ export default class NewReciept extends Component {
           }}> 
           <View style={{flex:1}}>
             <View style={pageTwoStyles.menuContainer}>
-                    <MaterialIcons name="keyboard-backspace" size={50} color="teal" onPress={() => {
+                    <MaterialIcons name="keyboard-backspace" size={50} color="white" onPress={() => {
                           this.setState({isPageOne: true, isPageTwo: false});
                         }}/>
-                    <FontAwesome name="window-close-o" size={40} color="firebrick" onPress={() => {
+                    <MaterialIcons name="close" size={40} color="white" onPress={() => {
                           this.props.onClose();
                         }}/>
                 </View>
             <View style={{flex:.9}}>
-            <ScrollView contentContainerStyle={{backgroundColor: '#d3dee7'}} endFillColor='#d3dee7'>
+            <ScrollView>
               
               <View style={{padding: 5}}>
-                <Text style={{paddingRight:5, fontSize:16}}>Name: </Text>
+                <Text style={{paddingRight:5, fontSize:16}}>Name (Optional): </Text>
                 <TextInput
                   style={pageTwoStyles.textInput}
                   onChangeText={(nameInputVal) => this.setState({nameInputVal})}
@@ -317,12 +368,12 @@ export default class NewReciept extends Component {
               
               {groupElements}
               <TouchableOpacity
-                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#a9ccbf'}}
+                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#b0d235'}}
                  onPress={this.onPressAddReciept}
                >
                  <Text 
                  onPress={() => this.setState({createGroupModalVisible:true})}
-                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'monospace-typewriter', color: '#042037'}}> Create New Group </Text>
+                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}> Create New Group </Text>
                </TouchableOpacity>
 
                <View style={{marginTop: 20, padding: 5}}>
@@ -331,13 +382,13 @@ export default class NewReciept extends Component {
               {tagElements}
 
               <TouchableOpacity
-                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#a9ccbf'}}
+                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#b0d235'}}
                  
                  onPress={() => this.setState({createTagModalVisible:true})}
                >
                  <Text 
                  
-                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'monospace-typewriter', color: '#042037'}}> Create New Field </Text>
+                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}> Create New Field </Text>
                </TouchableOpacity>
                
 
@@ -353,11 +404,11 @@ export default class NewReciept extends Component {
 
               <View style={{flex:.1}}>
                <TouchableOpacity
-                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#a9ccbf', marginBottom: 10, alignSelf: 'center'}}
+                 style={{alignSelf: 'center', width:'95%', marginTop:10, borderWidth: 1, backgroundColor: '#3ea9c1', marginBottom: 10, alignSelf: 'center'}}
                  onPress={this.onPressAddReciept}
                >
                  <Text 
-                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'monospace-typewriter', color: '#042037'}}> Create New Receipt </Text>
+                 style={{alignSelf: 'center', fontSize:24, fontFamily: 'zilla-slab.semibold', color: '#fff'}}> Create Receipt </Text>
                </TouchableOpacity>
                </View>
 
@@ -479,17 +530,47 @@ export default class NewReciept extends Component {
   }
 }
 
-let marginTop = (Platform.OS === 'ios' ? 25 : 0);
+let marginTop = (Platform.OS === 'ios' ? 45 : 0);
 const pageOneStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#d3dee7',
+    backgroundColor: '#fff',
     width: '100%',
   },
   menuContainer: {
-    marginTop: marginTop + 5,
-    width: '90%',
+    marginTop: marginTop,
+    backgroundColor: '#3ea9c1',
+    //alignItems: 'center',
+    width: '100%',
+    padding: 10,
+    flex: .1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  subMenu: {
+    width: '75%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  ButtonOneContainer: {
+    //marginTop: marginTop,
+    // backgroundColor: '#000',
+    //alignItems: 'center',
+    //width: '100%',
+    padding: 10,
+    flex: .6,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  ButtonTwoContainer: {
+    //marginTop: marginTop,
+    // backgroundColor: '#ccb',
+    //alignItems: 'center',
+    //width: '100%',
+    padding: 10,
+    flex: .3,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
@@ -542,7 +623,7 @@ const pageTwoStyles = StyleSheet.create({
   },
   menuContainer: {
     marginTop: marginTop,
-    backgroundColor: '#d3dee7',
+    backgroundColor: '#3ea9c1',
     alignItems: 'center',
     width: '100%',
     padding: 10,

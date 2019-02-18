@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import CollapsableReciept from './CollapsableReciept';
 import { FontAwesome } from '@expo/vector-icons';
 import {Ionicons} from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
 
 export default class GroupContainer extends React.Component {
 	expand = () => {
@@ -56,14 +57,14 @@ export default class GroupContainer extends React.Component {
 					<TouchableOpacity onPress={this.expand}>
 						<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
 	                		<Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20, marginTop: 2 }}>{this.props.name} </Text>
-	                		<FontAwesome style={{alignSelf: 'center'}} name="caret-right" size={20} color="blue" />
+	                		<FontAwesome style={{alignSelf: 'center'}} name="caret-right" size={20} color="gray" />
 	            		</View>
 	            	</TouchableOpacity>
 	            	<Ionicons style={{paddingRight: 10, paddingTop:5}} 
 	            		style={{alignSelf:'center'}}
 						name="md-close" 
-						size={25} 
-						color="gray" 
+						size={30} 
+						color="#B0D235" 
 						onPress={this.onCloseGroup}
 		            />
             	</View>
@@ -72,14 +73,14 @@ export default class GroupContainer extends React.Component {
 					<TouchableOpacity onPress={this.collapse}>
 						<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
 	                		<Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20, marginTop: 2 }}>{this.props.name} </Text>
-	                		<FontAwesome style={{alignSelf: 'center'}} name="caret-down" size={20} color="blue" />
+	                		<FontAwesome style={{alignSelf: 'center'}} name="caret-down" size={20} color="gray" />
 	            		</View>
 	            	</TouchableOpacity>
 	            	<Ionicons style={{paddingRight: 10, paddingTop:5}} 
 	            		style={{alignSelf:'center'}}
 						name="md-close" 
-						size={25} 
-						color="gray" 
+						size={30} 
+						color="#B0D235" 
 						onPress={this.onCloseGroup}
 		            />
             	</View>

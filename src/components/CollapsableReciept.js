@@ -36,11 +36,11 @@ export default class CollapsableReciept extends React.Component {
 						<TouchableOpacity onPress={this.expand}>
 							<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
 		                		<Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20, marginTop: 2 }}>{this.props.recieptName} </Text>
-		                		<FontAwesome style={{alignSelf: 'center'}} name="caret-right" size={20} color="blue" />
+		                		<FontAwesome style={{alignSelf: 'center'}} name="caret-right" size={20} color="gray" />
 		            		</View>
 		        		</TouchableOpacity>
 		        		<TouchableOpacity>
-	            			<FontAwesome style={{alignSelf: 'center'}} name="minus-square" size={25} color="red" onPress={this.remove} />
+	            			<FontAwesome style={{alignSelf: 'center'}} name="minus-square" size={25} color="#B0D235" onPress={this.remove} />
 	            		</TouchableOpacity>
             		</View>
 	        		) : (
@@ -49,11 +49,11 @@ export default class CollapsableReciept extends React.Component {
 							<TouchableOpacity onPress={this.collapse}>
 								<View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
 			                		<Text style={{ fontFamily: 'monospace-typewriter', fontSize: 20, marginTop: 2 }}>{this.props.recieptName} </Text>
-			                		<FontAwesome style={{alignSelf: 'center'}} name="caret-down" size={20} color="blue" />
+			                		<FontAwesome style={{alignSelf: 'center'}} name="caret-down" size={20} color="gray" />
 			            		</View>
 			        		</TouchableOpacity>
 			        		<TouchableOpacity>
-		            			<FontAwesome style={{alignSelf: 'center'}} name="minus-square" size={25} color="red" onPress={this.remove} />
+		            			<FontAwesome style={{alignSelf: 'center'}} name="minus-square" size={25} color="#B0D235" onPress={this.remove} />
 		            		</TouchableOpacity>
 	            		</View>
             		
@@ -73,7 +73,7 @@ export default class CollapsableReciept extends React.Component {
 				            ) : (null)}
 			            </View>
 			            <TouchableOpacity>
-							<Text style={{fontFamily: 'monospace-typewriter', fontSize: 16, color: 'teal', marginLeft:15}}>Edit Receipt</Text>
+							{/*<Text style={{fontFamily: 'zilla-slab.semibold', fontSize: 20, color: 'teal', marginLeft:15}}>Edit Receipt</Text>*/}
 						</TouchableOpacity>
 					</View>
 		        )}
